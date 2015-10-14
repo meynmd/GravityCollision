@@ -1,3 +1,5 @@
+/* translate particles by (x, y, z, w) */
+
 #include <cstdio>
 #include "includes/vmath.h"
 #include <string>
@@ -15,9 +17,6 @@ int main( int argc, char** argv )
 		fprintf( stderr, "usage: %s <filename> <x> <y> <z> <w>\n", argv[0] );
 		return 0;
 	}
-	
-//	size_t tFilenameLen = strlen( argv[1] ) + 4;
-//	char* tFilename = new char[tFilenameLen];
 	
 	string tFilename(argv[1]);
 	tFilename += ".new";
@@ -48,22 +47,6 @@ int main( int argc, char** argv )
 		points[i][2] += (float)(z);
 		points[i][3] += (float)(w);				
 	}
-	
-	/*	
-	for( int i = 0; i < fileLen; i++ )
-	{
-		if( points[i][3] < 1000. )
-		{
-			printf( "(%f, %f, %f), %f\n", 
-					points[i][0], points[i][1], points[i][2], points[i][3] );
-		}
-		else
-		{
-			printf( "(%f, %f, %f), %e\n", 
-					points[i][0], points[i][1], points[i][2], points[i][3] );
-		}
-	}
-	*/
 	
 	FILE* tFile = fopen( tFilename.c_str(), "w" );
 	fwrite(points, sizeof( vmath::vec4 ), fileLen, tFile );

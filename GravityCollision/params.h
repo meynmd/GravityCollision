@@ -8,10 +8,6 @@
 #define PARTICLE_PARAMS
 #define NUMT 8
 
-//#define PARTICLE_GROUP_SIZE 128
-//#define PARTICLE_GROUP_COUNT 20
-//#define PARTICLE_COUNT PARTICLE_GROUP_SIZE * PARTICLE_GROUP_COUNT
-
 const char* VSHADER_FILE = "vShader.txt";
 const char* FSHADER_FILE = "fShader.txt";
 
