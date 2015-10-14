@@ -1,21 +1,24 @@
 /*
- * particle simulator
+ * particle gravity simulation
+ *
+ * by M. Meyn
+ *
+ * using app framework from OpenGL Programming Guide, Eighth Edition
+ * by Dave Shreiner, Graham Sellers, John Kessenich, Bill Licea-Kane
+ *
+ * physics simulation by J. Parallel
  */
 
 #include "particles.h"
 #include "params.h"
-#include "simulation.h"
 
 #define STRINGIZE(a) #a
-
 
 
 DEFINE_APP( ParticleSimulator, "Compute Shader Particle System" )
 
 GLuint renderShader;
 GLuint render_vao;
-
-
 
 void ParticleSimulator::Initialize( const char * title )
 {
@@ -27,6 +30,7 @@ void ParticleSimulator::Initialize( const char * title )
 	int numProcessors = omp_get_num_procs();
 	fprintf( stderr, "Have %d threads available. Using %d.\n", numProcessors, NUMT );
 	
+	// read the initial particle positions and velocities
 	size_t numPart2 = 0, numPart1 = 0;
 	
 	FILE* pFile1 = fopen( "points/in1.pos", "r" );
@@ -86,6 +90,7 @@ void ParticleSimulator::Initialize( const char * title )
 	yRot = 0.f;
 	scaleAmt = 0.25f;
 
+	// render shaders adapted from OpenGL Programming Guide
 	static const char v_shader_source[] =
 			"#version 430 core\n"
 			"\n"
@@ -169,14 +174,11 @@ void ParticleSimulator::Initialize( const char * title )
 	check_gl_error();
 }
 
-
-
+/*
+ * update and draw the particles
+ */
 void ParticleSimulator::Display( bool auto_redraw )
 {
-	//omp_set_num_threads( NUMT );
-
-	check_gl_error();
-
 	static const GLuint start_ticks = 0;
 	GLuint current_ticks = (int) ( 1000 * omp_get_wtime() );
 	static GLuint last_ticks = current_ticks;
@@ -189,8 +191,10 @@ void ParticleSimulator::Display( bool auto_redraw )
 		delta_time = 2.0f;
 	}
 
+	// call the physics simulation
 	simulate(delta_time);
 
+	// draw the particles
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf);
 	glBufferData( GL_ARRAY_BUFFER, particleCount * sizeof(vmath::vec4), positions, GL_STREAM_COPY );
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -218,8 +222,6 @@ void ParticleSimulator::Display( bool auto_redraw )
 	last_ticks = current_ticks;
 
 	base::Display();
-
-	check_gl_error();
 }
 
 void ParticleSimulator::Finalize( void )
@@ -288,8 +290,6 @@ void _check_gl_error( const char *file, int line )
 		err = glGetError();
 	}
 }
-
-
 
 void keyboard( unsigned char c, int x, int y )
 {
@@ -370,8 +370,6 @@ void mouseButton( int button, int state, int x, int y )
 	}
 }
 
-
-
 void mouseMove( int x, int y )
 {
 	int dx = x - mouseX; // change in mouse coords
@@ -404,6 +402,9 @@ void mouseMove( int x, int y )
 	mouseY = y;
 }
 
+/*
+ * physics simulation by Joe Parallel, Oregon State University
+ */
 void simulate( float dt )
 {
 #pragma omp parallel for default(none) shared(particleCount, positions, velocities, forces, newPos, newVel, dt) schedule(dynamic)

@@ -25,12 +25,6 @@ using namespace std;
 #define TAB 9
 
 // constants:
-
-const double G         		= 6.67300e-11;	// m^3 / ( kg s^2 )
-const double EARTH_MASS		= 5.9742e24;	// kg
-const double EARTH_DIAMETER	= 12756000.32;	// meters
-const float TIMESTEP_FACT = 0.0001f;
-
 const int LEFT = { 4 };
 const int MIDDLE = { 2 };
 const int RIGHT = { 1 };
