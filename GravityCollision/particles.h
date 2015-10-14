@@ -25,6 +25,8 @@ using namespace std;
 #define TAB 9
 
 // constants:
+const double G = 6.67300e-11;	  // m^3 / ( kg s^2 )
+
 const int LEFT = { 4 };
 const int MIDDLE = { 2 };
 const int RIGHT = { 1 };
