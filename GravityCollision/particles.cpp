@@ -33,7 +33,7 @@ void ParticleSimulator::Initialize( const char * title )
 	omp_set_num_threads( NUMT );
 	int numProcessors = omp_get_num_procs();
 	fprintf( stderr, "N-body Gravity Simulation\nHave %d threads available. Using %d.\n\n", numProcessors, NUMT );
-	fprintf( stderr, "Left mouse button: Rotate\nRight mouse button: Scale\n\n");
+	fprintf( stderr, "Left mouse button: Rotate\nRight mouse button: Scale\nLeft and Right: Translate\n\n");
 	fprintf( stderr, "Esc to exit\n4 / 6 to rotate 90 degrees about Y axis\n2 / 8 to rotate 90 degrees about X axis\n" );
 	fprintf( stderr, "5 to reset rotation\nTab to reset view\n\n" );
 	
