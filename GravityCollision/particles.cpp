@@ -7,6 +7,10 @@
  * by Dave Shreiner, Graham Sellers, John Kessenich, Bill Licea-Kane
  *
  * physics simulation by J. Parallel
+ *
+ * This is a graphical adaptation of an N-body problem from Prof. Mike Bailey's class on Parallel
+ * Programming at Oregon State University. That problem in turn was inspired by the "colliding
+ * galaxies" scene from the movie "Cosmic Voyage."
  */
 
 #include "particles.h"
