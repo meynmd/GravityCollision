@@ -11,29 +11,10 @@
 const char* VSHADER_FILE = "vShader.txt";
 const char* FSHADER_FILE = "fShader.txt";
 
-// particle parameters:
 unsigned int PARTICLE_COUNT;
 
-const float XCENTER1 = { 100.f };
-const float YCENTER1 = { 100.f };
-const float ZCENTER1 = { 0.f };
+// particle parameters:
 
-const float XCENTER2 = { -100.f };
-const float YCENTER2 = { -100.f };
-const float ZCENTER2 = { 0.f };
-
-const float XCENTER3 = { -100.f };
-const float YCENTER3 = { 200.f };
-const float ZCENTER3 = { 0.f };
-
-const float RMAX = { 100. };
-const float LOCAL_RMIN = { 10. };
-const float LOCAL_RMAX = { 25. };
-
-const int MAXLOCALPARTICLES = { 128 };
-
-const float VMIN = { -50. };
-const float VMAX = { 50. };
-
+const float TIMESTEP_FACT = 0.0001f;
 
 #endif
